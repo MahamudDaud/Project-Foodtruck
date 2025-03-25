@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foodtruck Menu - Bestel Gerechten</title>
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="images/Logo.jpg" alt="Foodtruck Logo" />
+      </div>
+
+      <div class="winkelwagen">
+        <ul>
+          <li><a href="bestellingpagine.php">Winkelwagen</a></li>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <h1>Gerechten Bestellen</h1>
+      <!-- Één formulier voor alle gerechten -->
+      <form action="bestelling.php" method="post">
+       
+        <!-- Gerecht 1: Loempia -->
+        <div class="gerecht">
+          <img src="images/Loempia's.jpg" alt="Loempia's" loading="lazy" />
+          <div class="gerechtNaam">
+            <h3>Loempia</h3>
+            <h5>€5.50</h5>
+          </div>
+          <div class="bestel">
+            <!-- Checkbox zodat deze bestelling meegenomen wordt -->
+            <label>
+              <input type="checkbox" name="gerecht[]" value="Loempia">
+              Bestel
+            </label>
+            <!-- Aantal, gekoppeld aan de naam van het gerecht -->
+            <input type="number" name="aantal[Loempia]" min="1" value="1">
+          </div>
+        </div>
+        
+        <!-- Gerecht 2: Burritos -->
+        <div class="gerecht">
+          <img src="images/Burritos.jpg" alt="Burritos" loading="lazy" />
+          <div class="gerechtNaam">
+            <h3>Burritos</h3>
+            <h5>€6.50</h5>
+          </div>
+          <div class="bestel">
+            <label>
+              <input type="checkbox" name="gerecht[]" value="Burritos">
+              Bestel
+            </label>
+            <input type="number" name="aantal[Burritos]" min="1" value="1">
+          </div>
+        </div>
+        
+        <!-- Gerecht 3: Nachos -->
+        <div class="gerecht">
+          <img src="images/Nachos.jpg" alt="Nachos" loading="lazy" />
+          <div class="gerechtNaam">
+            <h3>Nachos</h3>
+            <h5>€10.50</h5>
+          </div>
+          <div class="bestel">
+            <label>
+              <input type="checkbox" name="gerecht[]" value="Nachos">
+              Bestel
+            </label>
+            <input type="number" name="aantal[Nachos]" min="1" value="1">
+          </div>
+        </div>
+        
+        <!-- Gerecht 4: Pozole -->
+        <div class="gerecht">
+          <img src="images/Pozole.jpg" alt="Pozole" loading="lazy" />
+          <div class="gerechtNaam">
+            <h3>Pozole</h3>
+            <h5>€6.00</h5>
+          </div>
+          <div class="bestel">
+            <label>
+              <input type="checkbox" name="gerecht[]" value="Pozole">
+              Bestel
+            </label>
+            <input type="number" name="aantal[Pozole]" min="1" value="1">
+          </div>
+        </div>
+        
+        <!-- Gerecht 5: Tacos -->
+        <div class="gerecht">
+          <img src="images/Tacos.jpg" alt="Tacos" loading="lazy" />
+          <div class="gerechtNaam">
+            <h3>Tacos</h3>
+            <h5>€7.00</h5>
+          </div>
+          <div class="bestel">
+            <label>
+              <input type="checkbox" name="gerecht[]" value="Tacos">
+              Bestel
+            </label>
+            <input type="number" name="aantal[Tacos]" min="1" value="1">
+          </div>
+        </div>
+        
+        <!-- Gerecht 6: Burritos (duplicate) -->
+        <div class="gerecht">
+          <img src="images/Burritos.jpg" alt="Burritos" loading="lazy" />
+          <div class="gerechtNaam">
+            <h3>Burritos XL</h3>
+            <h5>€8.50</h5>
+          </div>
+          <div class="bestel">
+            <label>
+              <input type="checkbox" name="gerecht[]" value="Burritos XL">
+              Bestel
+            </label>
+            <input type="number" name="aantal[Burritos XL]" min="1" value="1">
+          </div>
+        </div>
+        
+        <input type="submit" value="Bestellen" name="bestel" class="button">
+      </form>
+    </main>
+  </body>
+</html>
