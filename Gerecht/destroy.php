@@ -4,5 +4,5 @@ session_start();
 session_unset();
 session_destroy();
 
-header("Location: gerecht.html");
+header("Location: ../hoofdpagina/index.php");
 exit;

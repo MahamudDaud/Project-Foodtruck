@@ -1,0 +1,320 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Archivo Black', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #333333;
+    line-height: 1.2;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header Styles */
+header {
+    background-color: #ffffff;
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #eee;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    gap: 40px;
+}
+
+nav ul li a {
+    color: #333;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cart-link {
+    background-color: #333;
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #D32F2F; /* Rood voor Mexicaans en Loempia's */
+    padding: 180px 0 100px;
+    text-align: center;
+}
+
+.hero h1 {
+    color: white;
+    font-size: 5rem;
+    line-height: 1;
+    margin-bottom: 40px;
+    letter-spacing: -2px;
+}
+
+.brand-partners {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 2rem;
+}
+
+/* Features Section */
+.features {
+    background-color: white;
+}
+
+.feature {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature h2 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.pink-bg {
+    background-color: #FF9E80; /* Lichter oranje voor loempia's */
+}
+
+.lime-bg {
+    background-color: #76FF03; /* Felgroen voor Mexicaans */
+}
+
+.yellow-bg {
+    background-color: #FFEB3B; /* Geel voor Mexicaans */
+}
+
+.green-bg {
+    background-color: #00695C; /* Donkergroen */
+    color: white;
+}
+
+.feature-illustration {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    height: 300px;
+}
+
+/* Menu Section */
+.menu {
+    background-color: #D32F2F; /* Rood voor Mexicaans en Loempia's */
+    padding: 100px 0;
+    color: white;
+}
+
+.menu h2 {
+    font-size: 4rem;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.menu-item {
+    background-color: #FF5722; /* Oranje voor voedsel */
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.menu-item h3 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    color: white;
+}
+
+/* Growing Section (now Location section) */
+.growing {
+    background-color: #00695C; /* Donkergroen */
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.growing h2 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #FF5722; /* Oranje voor voedsel */
+    color: white;
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Info Section */
+.info-section {
+    background-color: #FFEB3B; /* Geel voor Mexicaans */
+    padding: 100px 0;
+    text-align: center;
+}
+
+.info-box {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.info-box h3 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #D32F2F;
+}
+
+.info-items {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.info-item {
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
+}
+
+.info-item h4 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.info-item p {
+    color: #666;
+    margin-bottom: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* Footer */
+footer {
+    background-color: #f5f5f5;
+    padding: 60px 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    text-align: center;
+}
+
+.footer-info p {
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+}
+
+.footer-info strong {
+    display: block;
+    margin-bottom: 15px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .feature h2 {
+        font-size: 2.5rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .info-items {
+        flex-direction: column;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    nav ul {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .feature h2 {
+        font-size: 2rem;
+    }
+
+    .menu h2, .growing h2 {
+        font-size: 2.5rem;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-box h3 {
+        font-size: 2rem;
+    }
+} 

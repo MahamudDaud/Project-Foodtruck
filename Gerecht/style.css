@@ -1,195 +1,640 @@
+/* Basisstijlen voor alle elementen */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  margin: 0;                /* Geen marge rondom elementen */
+  padding: 0;               /* Geen opvulling binnen elementen */
+  box-sizing: border-box;   /* Zorgt ervoor dat padding en border binnen de totale breedte/hoogte vallen */
+  font-family: 'Arial', sans-serif; /* Standaard lettertype voor alle tekst */
 }
 
+/* Stijl voor de pagina als geheel */
 body {
-  background-color: #f8f8f8;
-  color: #333;
-  line-height: 1.6;
+  background-color: #f8f8f8;  /* Lichtgrijze achtergrondkleur */
+  color: #333;               /* Donkergrijze tekstkleur */
+  line-height: 1.6;          /* Regelafstand voor betere leesbaarheid */
+  min-height: 100vh;         /* Minimale hoogte is volledige schermhoogte */
+  display: flex;             /* Gebruik flexbox voor layout */
+  flex-direction: column;    /* Elementen onder elkaar plaatsen */
 }
 
-/* Header Styling */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* Container voor alle inhoud */
+.container {
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== HEADER STYLING ===== */
+header {
+  display: flex;             /* Flexbox voor horizontale layout */
+  align-items: center;       /* Verticaal centreren van items */
+  justify-content: space-between; /* Ruimte tussen logo en winkelwagen */
+  width: 100%;               /* Volledige breedte innemen */
+  padding: 15px 30px;        /* Ruimte binnen de header (boven/onder 15px, links/rechts 30px) */
+  background-color: #fff;    /* Witte achtergrond */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtiele schaduw onderaan */
+  position: sticky;          /* Header blijft bovenaan vastplakken */
+  top: 0;                    /* Afstand van bovenkant scherm */
+  z-index: 100;              /* Laag op voorgrond, zodat header boven andere content komt */
+}
+
+/* Header styling voor het grid menu */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 15px 30px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
+/* Logo in de header */
 .logo {
-  width: auto;
+  width: auto;               /* Breedte automatisch aanpassen */
 }
 
 .logo img {
-  width: 150px;
-  height: auto;
-  margin: 0;
+  width: 150px;              /* Vaste breedte voor het logo */
+  height: auto;              /* Hoogte automatisch berekenen om verhoudingen te behouden */
+  margin: 0;                 /* Geen marge */
 }
 
+/* Winkelwagen navigatie */
 .winkelwagen ul {
-  display: flex;
+  display: flex;             /* Horizontale layout voor winkelwagen items */
 }
 
 .winkelwagen ul li {
-  list-style: none;
-  border: 2px solid #e74c3c;
-  padding: 0;
-  border-radius: 5px;
-  color: #e74c3c;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  list-style: none;          /* Geen opsommingstekens */
+  border: 2px solid #D32F2F; /* Rode rand rond de winkelwagen knop */
+  padding: 0;                /* Geen interne opvulling */
+  border-radius: 5px;        /* Afgeronde hoeken */
+  color: #D32F2F;            /* Rode tekstkleur */
+  font-weight: bold;         /* Dikgedrukte tekst */
+  cursor: pointer;           /* Handcursor bij hover */
+  transition: all 0.3s ease; /* Soepele overgang bij hover-effect */
 }
 
-.winkelwagen ul li a {
-  display: block;
-  text-decoration: none;
-  color: #e74c3c;
-  padding: 8px 15px;
-  transition: all 0.3s ease;
+/* Winkelwagen links en lege-winkelwagen melding */
+.winkelwagen ul li a,
+.winkelwagen ul li .empty-cart {
+  display: block;            /* Als blok weergeven voor volledige klikbare oppervlakte */
+  text-decoration: none;     /* Geen onderstreping van links */
+  color: #D32F2F;            /* Rode tekstkleur */
+  padding: 8px 15px;         /* Ruimte binnen het element */
+  transition: all 0.3s ease; /* Soepele overgang bij hover */
 }
 
+/* Hover-effect voor winkelwagen items */
 .winkelwagen ul li:hover {
-  background-color: #e74c3c;
+  background-color: #D32F2F; /* Rode achtergrond bij hover */
 }
 
-.winkelwagen ul li:hover a {
+/* Tekstkleur verandert naar wit bij hover */
+.winkelwagen ul li:hover a,
+.winkelwagen ul li:hover .empty-cart {
+  color: white;              /* Witte tekstkleur bij hover */
+}
+
+/* Winkelwagen icon en badge voor aantal */
+.winkelwagen-icon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.winkelwagen-aantal {
+  background-color: #D32F2F;
   color: white;
-}
-
-/* Main Content Styling */
-main {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-main h1 {
-  text-align: center;
-  margin: 20px 0 40px;
-  color: #333;
-  font-size: 2.2rem;
-}
-
-form {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
-}
-
-.gerecht {
-  background-color: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.gerecht:hover {
-  transform: translateY(-5px);
-}
-
-.gerecht img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-  margin: 0;
-}
-
-.gerechtNaam {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  background-color: #fff;
+  justify-content: center;
+  font-size: 12px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
+.winkelwagen-link {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.winkelwagen-link:hover {
+  background-color: #f5f5f5;
+  border-color: #D32F2F;
+  color: #D32F2F;
+}
+
+/* ===== HOOFDINHOUD STYLING ===== */
+main {
+  width: 100%;               /* Volledige breedte innemen */
+  max-width: 1200px;         /* Maximale breedte beperken */
+  margin: 0 auto;            /* Centreren in de pagina */
+  padding: 20px;             /* Ruimte rondom de inhoud */
+  flex-grow: 1;              /* Opvullen van beschikbare ruimte */
+}
+
+/* Hoofdtitel styling */
+main h1 {
+  text-align: center;        /* Tekst centreren */
+  margin: 20px 0 40px;       /* Marge boven (20px) en onder (40px) */
+  color: #D32F2F;            /* Rode tekstkleur */
+  font-size: 2.2rem;         /* Lettergrootte */
+}
+
+/* ===== TIJD MELDING STYLING ===== */
+/* Bericht over openingstijden of bestelmogelijkheden */
+.tijd-melding {
+  background-color: #FFEB3B; /* Gele achtergrond */
+  border-radius: 8px;        /* Afgeronde hoeken */
+  padding: 15px 20px;        /* Ruimte binnen het bericht */
+  margin-bottom: 30px;       /* Ruimte onder het bericht */
+  text-align: center;        /* Tekst centreren */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Subtiele schaduw */
+  border-left: 5px solid #D32F2F; /* Rode streep aan de linkerkant */
+}
+
+.tijd-melding p {
+  margin-bottom: 10px;       /* Ruimte onder elke paragraaf */
+  font-size: 16px;           /* Lettergrootte */
+  font-weight: bold;         /* Dikgedrukte tekst */
+}
+
+.tijd-melding p:last-child {
+  margin-bottom: 0;          /* Geen ruimte onder de laatste paragraaf */
+}
+
+/* Stijl voor succesbericht (als bestellen mogelijk is) */
+.tijd-melding.success {
+  background-color: #76FF03; /* Groene achtergrond */
+  border-left: 5px solid #00695C; /* Donkergroene streep links */
+}
+
+/* Openingstijden blok */
+.openingstijden {
+  margin: 30px auto;
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  max-width: 600px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.openingstijden h3 {
+  margin-bottom: 10px;
+  color: #2a9d8f;
+  font-size: 18px;
+}
+
+/* ===== MENU GRID STYLING ===== */
+.menukaart {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.gerecht-item {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.gerecht-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.gerecht-afbeelding {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.gerecht-naam {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: #333;
+}
+
+.gerecht-prijs {
+  color: #D32F2F;
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+/* ===== FORMULIER STYLING ===== */
+form {
+  display: grid;             /* CSS grid voor layout */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Responsieve kolommen */
+  gap: 30px;                 /* Ruimte tussen de gerechten */
+  margin-bottom: 40px;       /* Ruimte onder het formulier */
+}
+
+/* Gerecht kaart styling */
+.gerecht {
+  background-color: white;   /* Witte achtergrond */
+  border-radius: 10px;       /* Afgeronde hoeken */
+  overflow: hidden;          /* Inhoud die buiten de grenzen valt verbergen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtiele schaduw */
+  transition: transform 0.3s ease; /* Soepele overgang voor hover-effect */
+}
+
+/* Hover-effect voor gerecht kaarten */
+.gerecht:hover {
+  transform: translateY(-5px); /* Kaart licht omhoog bewegen bij hover */
+}
+
+/* Afbeelding van het gerecht */
+.gerecht img {
+  width: 100%;               /* Volledige breedte van de kaart */
+  height: 220px;             /* Vaste hoogte */
+  object-fit: cover;         /* Afbeelding passend maken zonder vervorming */
+  display: block;            /* Als blok weergeven */
+  margin: 0;                 /* Geen marge */
+}
+
+/* Styling voor naam en prijs van het gerecht */
+.gerechtNaam {
+  display: flex;             /* Flexbox voor horizontale layout */
+  justify-content: space-between; /* Naam links, prijs rechts */
+  align-items: center;       /* Verticaal centreren */
+  padding: 15px 20px;        /* Ruimte binnen het element */
+  background-color: #fff;    /* Witte achtergrond */
 }
 
 .gerechtNaam h3 {
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 1.2rem;         /* Lettergrootte voor naam */
+  color: #333;               /* Tekstkleur */
+  margin: 0;                 /* Geen marge */
 }
 
 .gerechtNaam h5 {
-  font-size: 1.1rem;
-  color: #e74c3c;
-  font-weight: bold;
+  font-size: 1.1rem;         /* Lettergrootte voor prijs */
+  color: #FF5722;            /* Oranje tekstkleur */
+  font-weight: bold;         /* Dikgedrukte tekst */
+  margin: 0;                 /* Geen marge */
 }
 
+/* Styling voor bestel-opties */
 .bestel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px 20px;
-  background-color: #fff;
+  display: flex;             /* Flexbox voor horizontale layout */
+  justify-content: space-between; /* Ruimte tussen checkbox en aantal */
+  align-items: center;       /* Verticaal centreren */
+  padding: 10px 20px 20px;   /* Ruimte binnen het element */
+  background-color: #fff;    /* Witte achtergrond */
 }
 
 .bestel label {
+  display: flex;             /* Flexbox voor checkbox en tekst */
+  align-items: center;       /* Verticaal centreren */
+  gap: 8px;                  /* Ruimte tussen checkbox en tekst */
+  cursor: pointer;           /* Handcursor bij hover */
+}
+
+/* Form voor menukaart items */
+.gerecht-item form {
   display: flex;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
+  justify-content: space-between;
+  margin-bottom: 0;
 }
 
-.bestel input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-.bestel input[type="number"] {
+.aantal-selector {
   width: 60px;
-  padding: 5px;
+  padding: 8px;
+  margin-right: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   text-align: center;
 }
 
-.button {
-  display: block;
-  width: 200px;
-  margin: 30px auto 0;
-  padding: 12px 25px;
-  background-color: #e74c3c;
+.bestel-knop {
+  background-color: #2a9d8f;
   color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 15px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 1.1rem;
   font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   transition: background-color 0.3s;
+  flex-grow: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+.bestel-knop:hover {
+  background-color: #1d7d70;
+}
+
+.bestel-knop:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Checkbox styling */
+.bestel input[type="checkbox"] {
+  width: 18px;               /* Breedte van checkbox */
+  height: 18px;              /* Hoogte van checkbox */
+  cursor: pointer;           /* Handcursor bij hover */
+}
+
+/* Styling voor uitgeschakelde checkbox */
+.bestel input[type="checkbox"]:disabled {
+  opacity: 0.5;              /* Half doorzichtig maken */
+  cursor: not-allowed;       /* Verboden cursor */
+}
+
+/* Invoerveld voor aantal */
+.bestel input[type="number"] {
+  width: 60px;               /* Breedte van invoerveld */
+  padding: 5px;              /* Ruimte binnen het invoerveld */
+  border: 1px solid #ddd;    /* Lichtgrijze rand */
+  border-radius: 4px;        /* Afgeronde hoeken */
+  text-align: center;        /* Tekst centreren */
+}
+
+/* Styling voor uitgeschakeld invoerveld */
+.bestel input[type="number"]:disabled {
+  background-color: #f5f5f5; /* Lichtgrijze achtergrond */
+  cursor: not-allowed;       /* Verboden cursor */
+}
+
+/* Bestelknop styling */
+.button {
+  display: block;            /* Als blok weergeven */
+  width: 200px;              /* Vaste breedte */
+  margin: 30px auto 0;       /* Centreren en ruimte erboven */
+  padding: 12px 25px;        /* Ruimte binnen de knop */
+  background-color: #FF5722; /* Oranje achtergrond */
+  color: white;              /* Witte tekstkleur */
+  border: none;              /* Geen rand */
+  border-radius: 5px;        /* Afgeronde hoeken */
+  cursor: pointer;           /* Handcursor bij hover */
+  font-size: 1.1rem;         /* Lettergrootte */
+  font-weight: bold;         /* Dikgedrukte tekst */
+  text-transform: uppercase; /* Tekst in hoofdletters */
+  letter-spacing: 1px;       /* Extra ruimte tussen letters */
+  transition: background-color 0.3s; /* Soepele overgang voor hover */
+}
+
+/* Hover-effect voor bestelknop */
 .button:hover {
-  background-color: #c0392b;
+  background-color: #D32F2F; /* Donkerrode achtergrond bij hover */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+/* Styling voor uitgeschakelde bestelknop */
+.button:disabled {
+  background-color: #cccccc; /* Grijze achtergrond */
+  cursor: not-allowed;       /* Verboden cursor */
+}
+
+/* ===== FOOTER STYLING ===== */
+footer {
+  background-color: #00695C; /* Donkergroene achtergrond */
+  color: #fff;               /* Witte tekstkleur */
+  text-align: center;        /* Tekst centreren */
+  padding: 25px 0;           /* Ruimte binnen de footer */
+  margin-top: 30px;          /* Ruimte boven de footer */
+  width: 100%;               /* Volledige breedte */
+}
+
+/* ===== RESPONSIEVE AANPASSINGEN ===== */
+/* DESKTOP STYLES (1200px en groter) */
+@media (min-width: 1200px) {
+  .container {
+    padding: 0 40px;
+  }
+  
+  .menukaart {
+    grid-template-columns: repeat(3, 1fr); /* Drie kolommen voor grote schermen */
+    gap: 30px;
+  }
+  
+  main h1 {
+    font-size: 2.5rem;
+    margin: 30px 0 50px;
+  }
+  
+  .header {
+    padding: 20px 40px;
+  }
+  
   .logo img {
-    width: 120px;
-    margin-left: 0;
+    width: 180px;
+  }
+  
+  .tijd-melding, .openingstijden {
+    padding: 20px 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .openingstijden h3 {
+    font-size: 22px;
+  }
+  
+  .gerecht-item {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  
+  .gerecht-item:hover {
+    transform: translateY(-10px);
+  }
+  
+  .bestel-knop {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* TABLET STYLES (768px tot 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .menukaart {
+    grid-template-columns: repeat(2, 1fr); /* Twee kolommen voor tablets */
+    gap: 25px;
+  }
+  
+  .header {
+    padding: 15px 30px;
+  }
+  
+  .logo img {
+    width: 150px;
+  }
+  
+  main h1 {
+    font-size: 2rem;
+    margin: 25px 0 40px;
+  }
+  
+  .gerecht-item {
+    max-width: 100%;
+  }
+  
+  .tijd-melding, .openingstijden {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* MOBILE STYLES (767px en kleiner) */
+@media (max-width: 767px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .logo img {
+    width: 130px;
+  }
+  
+  main {
+    padding: 15px;
+  }
+  
+  main h1 {
+    font-size: 1.7rem;
+    margin: 20px 0 30px;
+  }
+  
+  .menukaart {
+    grid-template-columns: 1fr; /* Enkele kolom voor mobiel */
+    gap: 20px;
+  }
+  
+  .gerecht-item {
+    max-width: 100%;
+  }
+  
+  .gerecht-afbeelding {
+    height: 160px;
+  }
+  
+  .gerecht-item form {
+    flex-wrap: wrap;
+  }
+  
+  .aantal-selector {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .bestel-knop {
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  .tijd-melding, .openingstijden {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .openingstijden h3 {
+    font-size: 16px;
+  }
+  
+  .button {
+    width: 100%;
+    margin: 20px auto 0;
   }
   
   form {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Enkele kolom voor mobiel */
+    gap: 20px;
   }
   
   .gerecht {
-    max-width: 500px;
-    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  
+  .winkelwagen ul li a,
+  .winkelwagen ul li .empty-cart {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+/* SMALL MOBILE STYLES (479px en kleiner) */
+@media (max-width: 479px) {
+  .header {
+    padding: 10px;
+  }
+  
+  .logo img {
+    width: 110px;
+  }
+  
+  main h1 {
+    font-size: 1.5rem;
+    margin: 15px 0 25px;
+  }
+  
+  .gerecht-naam {
+    font-size: 16px;
+  }
+  
+  .gerecht-prijs {
+    font-size: 15px;
+  }
+  
+  .tijd-melding p {
+    font-size: 14px;
+  }
+  
+  .gerechtNaam {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .gerechtNaam h3 {
+    font-size: 1rem;
+  }
+  
+  .gerechtNaam h5 {
+    font-size: 0.9rem;
+  }
+  
+  .bestel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .bestel input[type="number"] {
+    width: 100%;
+    margin-top: 5px;
   }
 }
