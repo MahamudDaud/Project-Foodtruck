@@ -1,235 +1,233 @@
 <?php
-// Start de sessie om gegevens te kunnen delen tussen pagina's
 session_start();
-
-// Laad de functies in
-require_once 'functies.php';
-
-// Controleer of bestellen mogelijk is
-$bestel_status = controleerBestellingMogelijk();
-$kan_bestellen = $bestel_status['kan_bestellen'];
-$tijd_bericht = $bestel_status['tijd_bericht'];
-
-// Bereken ophaaltijd
-$ophaaltijd_info = berekenOphaaltijd();
-$ophaaltijd_uur = $ophaaltijd_info['ophaaltijd_uur'];
-$ophaaltijd_minuut = $ophaaltijd_info['ophaaltijd_minuut'];
-$ophaaltijd_bericht = $ophaaltijd_info['ophaaltijd_bericht'];
-
-// Als er geen bestellingen zijn, stuur de gebruiker terug naar de menukaart
-if(!isset($_SESSION['bestellingen']) || count($_SESSION['bestellingen']) === 0) {
-    header("Location: gerecht.php");
-    exit;
-}
-
-// Maak een variabele voor de bestellingen en totaalbedrag
-$bestellingen = $_SESSION['bestellingen'];
-$totaal = 0;
-foreach($bestellingen as $bestelling) {
-    $totaal += $bestelling['prijs'] * $bestelling['aantal'];
-}
-
-// Validatie fouten array
-$fouten = [];
-
-// Form verwerking
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Controleer eerst of we binnen besteluren zijn
-    if (!$kan_bestellen) {
-        $fouten[] = $tijd_bericht;
-    } else {
-        // Valideer de invoervelden van het formulier
-        $required_fields = ['voornaam', 'achternaam', 'email', 'telefoonnummer', 'betaalmethode'];
-        
-        foreach ($required_fields as $field) {
-            if (empty($_POST[$field])) {
-                $fouten[] = ucfirst($field) . " is verplicht.";
-            }
-        }
-        
-        // Email validatie
-        if (!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            $fouten[] = "Email is niet geldig.";
-        }
-        
-        // Telefoonnummer validatie
-        if (!empty($_POST['telefoonnummer']) && !preg_match("/^[0-9]{10}$/", $_POST['telefoonnummer'])) {
-            $fouten[] = "Telefoonnummer moet uit 10 cijfers bestaan.";
-        }
-
-        // Als er geen fouten zijn, sla de gegevens op en ga naar de bevestigingspagina
-        if(empty($fouten)) {
-            // Sla de klantgegevens op in de sessie
-            $_SESSION['klant'] = [
-                'voornaam' => $_POST['voornaam'],
-                'achternaam' => $_POST['achternaam'],
-                'email' => $_POST['email'],
-                'telefoonnummer' => $_POST['telefoonnummer'],
-                'betaalmethode' => $_POST['betaalmethode'],
-                'ophaaltijd' => sprintf("%02d:%02d", $ophaaltijd_uur, $ophaaltijd_minuut)
-            ];
-
-            // Stuur door naar de bevestigingspagina
-            header("Location: bevestiging.php");
-            exit;
-        }
-    }
-}
-
-// Helper functie voor het maken van formulier velden
-function generateFormGroup($label, $name, $type, $value = '', $placeholder = '') {
-    echo '<div class="form-group">';
-    echo '<label for="' . $name . '">' . $label . '</label>';
-    echo '<input type="' . $type . '" id="' . $name . '" name="' . $name . '" value="' . htmlspecialchars($value) . '" placeholder="' . $placeholder . '">';
-    echo '</div>';
-}
 ?>
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bestelling Plaatsen - FoodTruck</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="bestel.css">
+    <title>Overzicht Bestellingen</title>
+    <link rel="stylesheet" href="bestel.css?v=<?php echo time(); ?>">
+    <style>
+        img.bestelling-afbeelding {
+            max-width: 80px !important;
+            max-height: 80px !important;
+            width: 80px !important;
+            height: 80px !important;
+            object-fit: cover;
+        }
+        
+        .terug-link {
+            display: inline-block;
+            background-color: #456990;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .terug-link:hover {
+            background-color: #2a4258;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="images/Logo.jpg" alt="Foodtruck Logo" class="logo">
-            <h1>Food Truck</h1>
+    <div class="container">
+        <h1>Overzicht van je bestellingen</h1>
+        
+        <div class="bestel-overzicht">
+            <?php
+            if (isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen']) > 0) {
+                $totaal = 0;
+                echo '<ul class="bestellingen-lijst">';
+                foreach ($_SESSION['bestellingen'] as $bestelling) {
+                    $gerecht = htmlspecialchars($bestelling['gerecht'], ENT_QUOTES, 'UTF-8');
+                    $aantal = $bestelling['aantal'];
+                    $prijs = number_format($bestelling['prijs'], 2, ',', '.');
+                    $subtotaal = $bestelling['aantal'] * $bestelling['prijs'];
+                    $totaal += $subtotaal;
+                    $subtotaalFormatted = number_format($subtotaal, 2, ',', '.');
+                    
+                    // Gebruik de opgeslagen afbeeldingspad of een standaard afbeelding
+                    $afbeelding = isset($bestelling['afbeelding']) ? $bestelling['afbeelding'] : 'images/default-gerecht.jpg';
+                    
+                    // Check of het bestand bestaat, anders gebruik een fallback
+                    if (!file_exists($afbeelding)) {
+                        // Probeer de afbeelding te vinden gebaseerd op de naam van het gerecht
+                        $mogelijkeAfbeeldingen = [
+                            "images/" . $gerecht . ".jpg",
+                            "images/" . $gerecht . "'s.jpg",
+                            "images/" . str_replace("'", "", $gerecht) . ".jpg"
+                        ];
+                        
+                        foreach ($mogelijkeAfbeeldingen as $mogelijkeAfbeelding) {
+                            if (file_exists($mogelijkeAfbeelding)) {
+                                $afbeelding = $mogelijkeAfbeelding;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    echo '<li class="bestelling-item">';
+                    echo '<img src="' . htmlspecialchars($afbeelding, ENT_QUOTES, 'UTF-8') . '" alt="' . $gerecht . '" class="bestelling-afbeelding" loading="lazy" width="80" height="80" style="width:80px; height:80px; object-fit:cover;">';
+                    echo '<div class="bestelling-info">';
+                    echo '<div class="bestelling-naam">' . $gerecht . '</div>';
+                    echo '<div class="bestelling-details">Aantal: ' . $aantal . '</div>';
+                    echo '<div class="bestelling-details">Prijs per stuk: €' . $prijs . '</div>';
+                    echo '</div>';
+                    echo '<div class="bestelling-prijs">€' . $subtotaalFormatted . '</div>';
+                    echo '</li>';
+                }
+                echo '</ul>';
+                echo '<div class="totaal"><span>Totaal:</span><span>€' . number_format($totaal, 2, ',', '.') . '</span></div>';
+            } else {
+                echo "<p>Je hebt nog geen bestellingen geplaatst.</p>";
+            }
+            ?>
         </div>
-        <nav>
-            <ul>
-                <li><a href="hoofdpagina/index.php">Home</a></li>
-                <li><a href="gerecht.php">Menu</a></li>
-                <li><a href="#">Over ons</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <div class="container">
-            <h1>Bestelling Afronden</h1>
-            
-            <?php if (!$kan_bestellen): ?>
-                <div class="tijd-melding">
-                    <p><?php echo $tijd_bericht; ?></p>
-                    <p><a href="gerecht.php" class="terug-link">Terug naar menu</a></p>
+        <div class="formulier-sectie">
+            <h2>Jouw gegevens</h2>
+            <form action="bevestiging.php" method="post">
+                <div class="form-group">
+                    <label for="naam">Naam:</label>
+                    <input type="text" name="Naam" id="naam" required>
                 </div>
-            <?php else: ?>
-                <!-- Bestel overzicht -->
-                <section class="bestel-overzicht">
-                    <h2>Je Bestelling</h2>
-                    
-                    <ul class="bestellingen-lijst">
-                        <?php 
-                        foreach ($bestellingen as $item): 
-                        ?>
-                            <li class="bestelling-item">
-                                <img src="<?php echo $item['afbeelding']; ?>" alt="<?php echo $item['naam']; ?>" class="bestelling-afbeelding">
-                                <div class="bestelling-info">
-                                    <div class="bestelling-naam"><?php echo $item['naam']; ?></div>
-                                    <div class="bestelling-details">Aantal: <?php echo $item['aantal']; ?></div>
-                                </div>
-                                <div class="bestelling-prijs">€<?php echo number_format($item['prijs'] * $item['aantal'], 2, ',', '.'); ?></div>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    
-                    <div class="totaal">
-                        <span>Totaal:</span>
-                        <span>€<?php echo number_format($totaal, 2, ',', '.'); ?></span>
+                
+                <div class="form-group">
+                    <label for="achternaam">Achternaam:</label>
+                    <input type="text" name="Achternaam" id="achternaam" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tijd">Afhaaltijd:</label>
+                    <select name="tijd" id="tijd" required>
+                        <option value="">-- Selecteer afhaaltijd --</option>
+                        <!-- Tijdsopties worden met JavaScript gevuld -->
+                    </select>
+                </div>
+                
+                <h2>Betaalmethode</h2>
+                <div class="betaalmethode-opties">
+                    <div class="radio-option">
+                        <input type="radio" name="betaal" id="creditcard" value="Creditcard of bankpas" required>
+                        <label for="creditcard">Creditcard of bankpas</label>
                     </div>
-                </section>
-                
-                <!-- Afhalen informatie -->
-                <div class="afhalen-informatie">
-                    <h3>Afhaalgegevens</h3>
-                    <p>Je kunt je bestelling ophalen vanaf: <strong><?php echo sprintf("%02d:%02d", $ophaaltijd_uur, $ophaaltijd_minuut); ?></strong></p>
+                    
+                    <div class="radio-option">
+                        <input type="radio" name="betaal" id="paypal" value="Paypal">
+                        <label for="paypal">Paypal</label>
+                    </div>
+                    
+                    <div class="radio-option">
+                        <input type="radio" name="betaal" id="klarna" value="Klarna">
+                        <label for="klarna">Klarna</label>
+                    </div>
+                    
+                    <div class="radio-option">
+                        <input type="radio" name="betaal" id="ideal" value="iDeal">
+                        <label for="ideal">iDeal</label>
+                        
+                        <select name="bank" id="bank">
+                            <option value="">-- Selecteer bank --</option>
+                            <option value="ING">ING</option>
+                            <option value="Rabobank">Rabobank</option>
+                            <option value="ABN AMRO">ABN AMRO</option>
+                            <option value="SNS Bank">SNS Bank</option>
+                        </select>
+                    </div>
                 </div>
                 
-                <!-- Contactgegevens formulier -->
-                <form method="post" action="">
-                    <?php if (!empty($fouten)): ?>
-                        <div class="error">
-                            <ul>
-                                <?php foreach ($fouten as $error): ?>
-                                    <li><?php echo $error; ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <section class="formulier-sectie">
-                        <h2>Contactgegevens</h2>
-                        
-                        <?php
-                        // Formulier velden genereren met helper functie
-                        generateFormGroup('Voornaam', 'voornaam', 'text', $_POST['voornaam'] ?? '', 'Uw voornaam');
-                        generateFormGroup('Achternaam', 'achternaam', 'text', $_POST['achternaam'] ?? '', 'Uw achternaam');
-                        generateFormGroup('E-mail', 'email', 'email', $_POST['email'] ?? '', 'voorbeeld@email.com');
-                        generateFormGroup('Telefoonnummer', 'telefoonnummer', 'tel', $_POST['telefoonnummer'] ?? '', '0612345678');
-                        ?>
-                    </section>
-                    
-                    <section class="formulier-sectie">
-                        <h2>Betaalmethode</h2>
-                        
-                        <div class="betaalmethode-opties">
-                            <div class="radio-option">
-                                <label>
-                                    <input type="radio" name="betaalmethode" value="Contant" <?php if (isset($_POST['betaalmethode']) && $_POST['betaalmethode'] == 'Contant') echo 'checked'; ?>>
-                                    Contant bij afhalen
-                                </label>
-                            </div>
-                            
-                            <div class="radio-option">
-                                <label>
-                                    <input type="radio" name="betaalmethode" value="Pin" <?php if (isset($_POST['betaalmethode']) && $_POST['betaalmethode'] == 'Pin') echo 'checked'; ?>>
-                                    Pin bij afhalen
-                                </label>
-                            </div>
-                            
-                            <div class="radio-option">
-                                <label>
-                                    <input type="radio" name="betaalmethode" value="iDeal" <?php if (isset($_POST['betaalmethode']) && $_POST['betaalmethode'] == 'iDeal') echo 'checked'; ?>>
-                                    iDeal (direct betalen)
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" name="submit" class="submit-btn">Bestelling Afronden</button>
-                    </section>
-                </form>
-            <?php endif; ?>
+                <input type="submit" value="Bevestig bestelling" class="submit-btn" id="bevestigBtn">
+                <a href="gerecht.html" class="terug-link">Terug naar menu</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toon de bankselectie alleen wanneer iDeal is geselecteerd
+        document.addEventListener('DOMContentLoaded', function() {
+            const idealRadio = document.getElementById('ideal');
+            const bankSelect = document.getElementById('bank');
+            const bevestigBtn = document.getElementById('bevestigBtn');
+            const hasItems = <?php echo (isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen']) > 0) ? 'true' : 'false'; ?>;
             
-            <a href="gerecht.php" class="terug-link">Terug naar menu</a>
-            <a href="destroy.php" class="terug-link">Winkelwagen leegmaken</a>
-        </div>
-    </main>
-    
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="images/Logo.jpg" alt="Foodtruck Logo" class="logo">
-                <h3>Food Truck</h3>
-            </div>
-            <div class="footer-info">
-                <h4>Openingstijden</h4>
-                <p>Maandag - Vrijdag: 09:00 - 17:00</p>
-                <p>Zaterdag - Zondag: 07:00 - 19:00</p>
-            </div>
-            <div class="footer-contact">
-                <h4>Contact</h4>
-                <p>Email: info@foodtruck.nl</p>
-                <p>Telefoon: 06-12345678</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; <?php echo date('Y'); ?> Food Truck - Alle rechten voorbehouden</p>
-        </div>
-    </footer>
+            // Check of er items in het winkelmandje zitten
+            if (!hasItems) {
+                bevestigBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('U heeft nog geen gerechten geselecteerd. Ga terug naar het menu om gerechten te kiezen.');
+                });
+            }
+            
+            // Verberg de bankselectie initieel
+            bankSelect.style.display = idealRadio.checked ? 'inline-block' : 'none';
+            
+            // Voeg event listeners toe aan alle radio buttons
+            document.querySelectorAll('input[name="betaal"]').forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    bankSelect.style.display = idealRadio.checked ? 'inline-block' : 'none';
+                    // Maak bank veld verplicht alleen als iDeal is geselecteerd
+                    bankSelect.required = idealRadio.checked;
+                });
+            });
+
+            // Afhaaltijden genereren
+            function generatePickupTimes() {
+                const tijdSelect = document.getElementById('tijd');
+                const nu = new Date();
+                const huidigeUur = nu.getHours();
+                const huidigeMinuut = nu.getMinutes();
+                
+                // Bereken hoeveel minuten er nog zijn tot het volgende kwartier
+                let minuten = huidigeMinuut % 15;
+                minuten = 15 - minuten;
+                
+                // Maak een nieuwe datum voor het eerstvolgende kwartier
+                const eersteKwartier = new Date(nu);
+                eersteKwartier.setMinutes(huidigeMinuut + minuten);
+                eersteKwartier.setSeconds(0);
+                
+                // Als het minder dan 20 minuten tot het volgende kwartier is, sla het over
+                // en begin bij het kwartier daarna
+                const minimaleVoorbereidingsTijd = 20; // in minuten
+                let startTijd;
+                
+                if (minuten < minimaleVoorbereidingsTijd) {
+                    // Ga naar het kwartier na het eerstvolgende kwartier
+                    startTijd = new Date(eersteKwartier);
+                    startTijd.setMinutes(eersteKwartier.getMinutes() + 15);
+                } else {
+                    startTijd = eersteKwartier;
+                }
+                
+                // Genereer tijdsopties voor de komende 6 uur met intervallen van 15 minuten
+                const eindTijd = new Date(nu);
+                eindTijd.setHours(eindTijd.getHours() + 6);
+                
+                let huidigeOptie = new Date(startTijd);
+                while (huidigeOptie <= eindTijd) {
+                    const uur = huidigeOptie.getHours().toString().padStart(2, '0');
+                    const minuut = huidigeOptie.getMinutes().toString().padStart(2, '0');
+                    const tijdString = `${uur}:${minuut}`;
+                    
+                    const option = document.createElement('option');
+                    option.value = tijdString;
+                    option.textContent = tijdString;
+                    tijdSelect.appendChild(option);
+                    
+                    // Ga naar het volgende kwartier
+                    huidigeOptie.setMinutes(huidigeOptie.getMinutes() + 15);
+                }
+            }
+            
+            // Roep de functie aan om de tijden te genereren
+            generatePickupTimes();
+        });
+    </script>
 </body>
 </html>

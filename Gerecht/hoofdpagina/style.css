@@ -70,6 +70,19 @@ nav ul li a {
     border-radius: 4px;
 }
 
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background: black;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
 /* Hero Section */
 .hero {
     background-color: #D32F2F; /* Rood voor Mexicaans en Loempia's */
@@ -294,6 +307,22 @@ footer {
 
     nav ul {
         display: none;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .burger.toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .burger.toggle .line2 {
+        opacity: 0;
+    }
+
+    .burger.toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
     }
 }
 

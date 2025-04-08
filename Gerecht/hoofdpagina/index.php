@@ -19,7 +19,7 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
                 <h1>FOODTRUCK</h1>
             </div>
             <nav>
-                <ul>
+                <ul id="nav-links">
                     <li><a href="../gerecht.php">Menu</a></li>
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">Home</a></li>
@@ -31,6 +31,11 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
                         <?php endif; ?>
                     </li>
                 </ul>
+                <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
             </nav>
         </div>
     </header>
@@ -174,5 +179,6 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
             </div>
         </div>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html> 
