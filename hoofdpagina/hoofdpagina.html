@@ -1,177 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-.containernav{
-    width: 1200px;
-    height: 80px;
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-between;
-    align-items: center;
-}
-.navlogo{
-    width: 170px;
-    height: 38px;
-}
-nav ul{
-    list-style: none;
-    display: flex;
-}
-nav a {
-    color:  black;
-    text-decoration: none;
-    display: block;
-    padding: 6px 10px 6px 10px;
-    margin: 0px 6px 0px 6px
-}
-/* main */
-.containermain{
-display: flex;
-margin: 50px;
-}
-main .h1txt{
-    font-size: 75px;
-    margin-bottom: 30px;
-}
-.txtmain{
-    margin-right: 30px;
-}
-main p{
-    margin-bottom: 30px;
-}
-main a{
-    background-color: black;
-    color: white;
-    border-radius: 30px;
-    font-size: 16px;
-    text-transform: uppercase;
-    padding: 12px 35px 12px 35px;
-    text-decoration: none;
-}
-main h1{
-    font-size: 60px;
-    margin-bottom: 15px;
-}
-.txtsomething{
-    text-align: center;
-}
-.card{
-    border: black solid 2px;
-    height: 600px;
-    width: 25%;
-}
-.card img{
-    width: 100%;
-}
-.cardtxt{
-    margin: 15px;
-}
-.card .prijs{
-    text-align: end;
-}
-.allcards{
-    display: flex;
-    justify-content: space-evenly;
-}
-.imgcontainer{
-    width: 1200px;
-
-}
-.imgcontainer img{
-    width: 100%;
-    height: 100%;
-}
-    </style>
+    <title>Restaurant Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="models/style.css">
+   
 </head>
+
 <body>
     <nav class="containernav">
-        <img src="C:\school\leerjaar1\periode 3\html\week 6\img\logo.png" class="navlogo" alt="">
-        <ul>
-            <li>
-                <a class="home" href="">HOME</a>
-            </li>
-            <li>
-                <a href="">PROJECTS</a>
-            </li>
-            <li>
-                <a href="">SERVICES</a>
-            </li>
-            <li>
-                <a href="">ABOUT US</a>
-            </li>
-            <li>
-                <a href="">NEWS</a>
-            </li>
-            <li>
-                <a href="">CONTACT</a>
-            </li>
-            <li>
-                <a href="">BUY</a>
-            </li>
+        <img src="img/foodtruck.png" class="navlogo" alt="Logo">
+        <ul class="nav-links">
+            <li><a href="#gerechten">GERECHTEN</a></li>
+            <li><a href="#contact">CONTACT</a></li>
         </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
     </nav>
 
     <main>
-        <div class="containermain">
-            <div class="txtmain">
-                <h1 class="h1txt"> huidige populairste gerechte!</h1>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos dolorem eligendi odit eius quisquam! Ipsa eveniet ex soluta tenetur placeat inventore tempore! Accusantium minus consectetur id similique aspernatur error, ab eligendi, illum sapiente, eaque consequuntur! Eligendi dolorum praesentium, ullam illum, provident eaque consectetur a blanditiis culpa repellat itaque dolorem quis.</p>
-                <a href="">bestel</a>
-            </div>
-            <div class="imgcontainer">
-                <img src="C:\school\leerjaar1\periode 3\html\week 6\img\projects-cladding-2-655x545.jpg" alt="">
+        <div class="hero">
+            <div class="containermain">
+                <h1 class="h1txt">Huidige populairste gerechten!</h1>
+                <p>Ontdek onze meest geliefde gerechten, zorgvuldig bereid met verse ingrediënten.</p>
+                <a href="#">Bestel</a>
             </div>
         </div>
-
-        <div class="txtsomething">
-            <h1>short heading goes here</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>Nihil, atque!</p>
-        </div>
-
-        <div class="allcards">
+        <div class="allcards" id="gerechten">
             <div class="card">
-                <img src="C:\Users\semsc\Dropbox\school\leerjaar1\periode 3\html\week 6\img\blog-kids-520x416.jpg" alt="">
+                <img src="img/chicken-gyoza.jpg" alt="Gerecht">
                 <div class="cardtxt">
-                    <p>gerecht</p>
-                    <br>
-                    <h2>blog title heading goes here</h2>
-                    <br>
-                    <p>algemenen ingredienten en beschrijving</p>
-                    <p class="prijs">prijs</p>
+                    <h2>Gyoza</h2>
+                    <p>Japanse dumplings gevuld met vers gehakt en groenten, vaak gebakken of gestoomd. Ze worden
+                        geserveerd met een smakelijke dipsaus en zijn perfect als voorgerecht of snack.</p>
+                    <p class="prijs">€10,99</p>
                 </div>
             </div>
             <div class="card">
-                <img src="C:\Users\semsc\Dropbox\school\leerjaar1\periode 3\html\week 6\img\blog-kids-520x416.jpg" alt="">
+                <img src="img/garnalen-loempias-uit-de-oven-recept.jpg" alt="Gerecht">
                 <div class="cardtxt">
-                    <p>gerecht</p>
-                    <br>
-                    <h2>blog title heading goes here</h2>
-                    <br>
-                    <p>algemenen ingredienten en beschrijving</p>
-                    <p class="prijs">prijs</p>
+                    <h2>Loempia's</h2>
+                    <p>Heerlijke loempia's gevuld met garnalen, varkensvlees, groenten en rijstnoedels. Deze worden
+                        gewikkeld in knapperig rijstpapier en geserveerd met een frisse dipsaus.</p>
+                    <p class="prijs">€12,99</p>
                 </div>
             </div>
             <div class="card">
-                <img src="C:\Users\semsc\Dropbox\school\leerjaar1\periode 3\html\week 6\img\blog-kids-520x416.jpg" alt="">
+                <img src="img/Kipsaté-8.jpg" alt="Gerecht">
                 <div class="cardtxt">
-                    <p>gerecht</p>
-                    <br>
-                    <h2>blog title heading goes here</h2>
-                    <br>
-                    <p>algemenen ingredienten en beschrijving</p>
-                    <p class="prijs">prijs</p>
+                    <h2>Kipsaté</h2>
+                    <p>Onze Indonesische kipsaté wordt gemarineerd in geurige kruiden en gegrild tot perfectie. Het
+                        wordt geserveerd met een romige pindasaus die de smaken volledig tot hun recht laat komen.</p>
+                    <p class="prijs">€9,99</p>
                 </div>
             </div>
         </div>
     </main>
+
+    <footer id="contact">
+        <p>Address: 123 Mass Street, City, State, Country</p>
+        <p>Openingstijden:<br>Maandag - Vrijdag: 09:00 - 17:00<br>Zaterdag - Zondag: 07:00 - 19:00</p>
+        <div>
+            <a href="https://facebook.com" target="_blank"><img src="img/facebook.png" alt="Facebook"></a>
+            <a href="https://instagram.com" target="_blank"><img src="img/instagram.png" alt="Instagram"></a>
+            <a href="https://twitter.com" target="_blank"><img src="img/twitter.png" alt="Twitter"></a>
+        </div>
+
+        <div class="contact">
+            <button id="call-btn" class="call-btn">Contact ons</button> 
+        </div>
+    </footer>
+
+    <script src="models/script.js"></script>
 </body>
 </html>
