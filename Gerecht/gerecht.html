@@ -22,7 +22,6 @@
       <h1>Gerechten Bestellen</h1>
       <!-- Één formulier voor alle gerechten -->
       <form action="bestelling.php" method="post">
-       
         <!-- Gerecht 1: Loempia -->
         <div class="gerecht">
           <img src="images/Loempia's.jpg" alt="Loempia's" loading="lazy" />
@@ -33,14 +32,14 @@
           <div class="bestel">
             <!-- Checkbox zodat deze bestelling meegenomen wordt -->
             <label>
-              <input type="checkbox" name="gerecht[]" value="Loempia">
+              <input type="checkbox" name="gerecht[]" value="Loempia" />
               Bestel
             </label>
             <!-- Aantal, gekoppeld aan de naam van het gerecht -->
-            <input type="number" name="aantal[Loempia]" min="1" value="1">
+            <input type="number" name="aantal[Loempia]" min="1" value="1" />
           </div>
         </div>
-        
+
         <!-- Gerecht 2: Burritos -->
         <div class="gerecht">
           <img src="images/Burritos.jpg" alt="Burritos" loading="lazy" />
@@ -50,13 +49,13 @@
           </div>
           <div class="bestel">
             <label>
-              <input type="checkbox" name="gerecht[]" value="Burritos">
+              <input type="checkbox" name="gerecht[]" value="Burritos" />
               Bestel
             </label>
-            <input type="number" name="aantal[Burritos]" min="1" value="1">
+            <input type="number" name="aantal[Burritos]" min="1" value="1" />
           </div>
         </div>
-        
+
         <!-- Gerecht 3: Nachos -->
         <div class="gerecht">
           <img src="images/Nachos.jpg" alt="Nachos" loading="lazy" />
@@ -66,13 +65,13 @@
           </div>
           <div class="bestel">
             <label>
-              <input type="checkbox" name="gerecht[]" value="Nachos">
+              <input type="checkbox" name="gerecht[]" value="Nachos" />
               Bestel
             </label>
-            <input type="number" name="aantal[Nachos]" min="1" value="1">
+            <input type="number" name="aantal[Nachos]" min="1" value="1" />
           </div>
         </div>
-        
+
         <!-- Gerecht 4: Pozole -->
         <div class="gerecht">
           <img src="images/Pozole.jpg" alt="Pozole" loading="lazy" />
@@ -82,13 +81,13 @@
           </div>
           <div class="bestel">
             <label>
-              <input type="checkbox" name="gerecht[]" value="Pozole">
+              <input type="checkbox" name="gerecht[]" value="Pozole" />
               Bestel
             </label>
-            <input type="number" name="aantal[Pozole]" min="1" value="1">
+            <input type="number" name="aantal[Pozole]" min="1" value="1" />
           </div>
         </div>
-        
+
         <!-- Gerecht 5: Tacos -->
         <div class="gerecht">
           <img src="images/Tacos.jpg" alt="Tacos" loading="lazy" />
@@ -98,13 +97,13 @@
           </div>
           <div class="bestel">
             <label>
-              <input type="checkbox" name="gerecht[]" value="Tacos">
+              <input type="checkbox" name="gerecht[]" value="Tacos" />
               Bestel
             </label>
-            <input type="number" name="aantal[Tacos]" min="1" value="1">
+            <input type="number" name="aantal[Tacos]" min="1" value="1" />
           </div>
         </div>
-        
+
         <!-- Gerecht 6: Burritos (duplicate) -->
         <div class="gerecht">
           <img src="images/Burritos.jpg" alt="Burritos" loading="lazy" />
@@ -114,14 +113,14 @@
           </div>
           <div class="bestel">
             <label>
-              <input type="checkbox" name="gerecht[]" value="Burritos XL">
+              <input type="checkbox" name="gerecht[]" value="Burritos XL" />
               Bestel
             </label>
-            <input type="number" name="aantal[Burritos XL]" min="1" value="1">
+            <input type="number" name="aantal[Burritos XL]" min="1" value="1" />
           </div>
         </div>
-        
-        <input type="submit"  value="Bestellen" name="bestel" class="button">
+
+        <input type="submit" value="Bestellen" name="bestel" class="button" />
       </form>
     </main>
   </body>

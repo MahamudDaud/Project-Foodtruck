@@ -8,7 +8,7 @@ $gerechten = [
     "Nachos"    => 10.50,
     "Pozole"    => 6.00,
     "Tacos"     => 7.00,
-    
+
 ];
 
 // Associatie tussen gerechten en hun afbeeldingen
@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestel'])) {
 ?>
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <title>Gerechten Bestellen</title>
@@ -67,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestel'])) {
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Gerechten Bestellen</h1>
@@ -79,16 +81,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestel'])) {
                 $imagepad = isset($gerechtAfbeeldingen[$naam]) ? $gerechtAfbeeldingen[$naam] : 'images/default-gerecht.jpg';
                 echo "
                 <div class='gerecht'>
-                    <img src='{$imagepad}' alt='".htmlspecialchars($naam, ENT_QUOTES, 'UTF-8')."' loading='lazy' width='100' height='100' style='width:100px; height:100px; object-fit:cover;'>
+                    <img src='{$imagepad}' alt='" . htmlspecialchars($naam, ENT_QUOTES, 'UTF-8') . "' loading='lazy' width='100' height='100' style='width:100px; height:100px; object-fit:cover;'>
                     <div>
-                        <h3>".htmlspecialchars($naam, ENT_QUOTES, 'UTF-8')."</h3>
+                        <h3>" . htmlspecialchars($naam, ENT_QUOTES, 'UTF-8') . "</h3>
                         <h5>€" . number_format($prijs, 2, ',', '.') . "</h5>
                     </div>
                     <div class='bestel'>
                         <label>
-                            <input type='checkbox' name='gerecht[]' value='".htmlspecialchars($naam, ENT_QUOTES, 'UTF-8')."'> Bestel
+                            <input type='checkbox' name='gerecht[]' value='" . htmlspecialchars($naam, ENT_QUOTES, 'UTF-8') . "'> Bestel
                         </label>
-                        <input type='number' name='aantal[".htmlspecialchars($naam, ENT_QUOTES, 'UTF-8')."]' min='1' value='1'>
+                        <input type='number' name='aantal[" . htmlspecialchars($naam, ENT_QUOTES, 'UTF-8') . "]' min='1' value='1'>
                     </div>
                 </div>";
             }
@@ -97,4 +99,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestel'])) {
         </form>
     </div>
 </body>
+
 </html>

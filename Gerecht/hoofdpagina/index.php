@@ -5,6 +5,7 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
 ?>
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <div class="container header-container">
@@ -24,7 +26,7 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">Home</a></li>
                     <li>
-                        <?php if($hasItems): ?>
+                        <?php if ($hasItems): ?>
                             <a href="../bestellingpagine.php" class="cart-link">Winkelwagen (<?php echo count($_SESSION['bestellingen']); ?>)</a>
                         <?php else: ?>
                             <a href="../gerecht.php" class="cart-link">Winkelwagen</a>
@@ -32,10 +34,10 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
                     </li>
                 </ul>
                 <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
             </nav>
         </div>
     </header>
@@ -181,4 +183,5 @@ $hasItems = isset($_SESSION['bestellingen']) && count($_SESSION['bestellingen'])
     </footer>
     <script src="script.js"></script>
 </body>
-</html> 
+
+</html>
